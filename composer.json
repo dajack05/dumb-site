@@ -15,7 +15,18 @@
     ],
     "build": [
       "@composer --no-plugins --no-interaction install --no-scripts --no-dev",
-      "@composer --no-plugins --no-interaction archive"
+      "mkdir -p dist",
+      "cd dist && rm -rf * && cd ..",
+      "cp *.php ./dist",
+      "cp LICENSE ./dist",
+      "cp site.toml ./dist",
+      "cp style.css ./dist",
+      "cp -r ./pages ./dist",
+      "cp -r ./vendor ./dist"
+    ],
+    "archive": [
+      "@composer --no-plugins --no-interaction install --no-scripts --no-dev",
+      "@composer --no-plugins --no-interaction archive --file=dist"
     ]
   },
   "config": {

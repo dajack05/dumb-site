@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "concurrently \"composer dev\" \"npx @tailwindcss/cli -i ./input.css -o ./style.css --watch\"",
-    "build": "npx @tailwindcss/cli -i ./input.css -o ./style.css"
+    "build": "npx @tailwindcss/cli -i ./input.css -o ./style.css && composer run build"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.17",
