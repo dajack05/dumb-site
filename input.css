@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+body {
+    @apply min-h-[100vh] bg-gray-200 flex flex-col;
+}
+
+header {
+    @apply bg-cyan-300 p-6;
+
+}
+
+nav {
+    @apply flex sticky top-0;
+
+    a {
+        @apply border-cyan-500 bg-cyan-400 flex-grow text-center font-semibold p-2 transition-all;
+        @apply hover:bg-cyan-300;
+
+        &.active {
+            @apply border-cyan-500 bg-cyan-500 flex-grow text-center font-semibold p-2 transition-all text-white;
+            @apply hover:bg-cyan-500;
+        }
+    }
+}
+
+main {
+    @apply container mx-auto bg-gray-300 grow my-4;
+
+    * {
+        @apply m-4;
+    }
+
+    a {
+        @apply text-blue-600 underline hover:text-blue-500 transition-colors;
+    }
+
+    h1 {
+        @apply text-4xl p-4 w-full shadow-md m-0 bg-cyan-500 text-white px-8;
+    }
+
+    h2 {
+        @apply text-3xl border-b;
+    }
+
+    h3 {
+        @apply text-2xl italic;
+    }
+
+    h4 {
+        @apply text-xl font-bold;
+    }
+
+    h5 {
+        @apply font-semibold;
+    }
+
+}
+
+footer {
+    @apply px-6 py-3 bg-cyan-600 text-white;
+}
+
+.site-title {
+    @apply text-3xl font-semibold m-6;
+}

@@ -1,2 +1,3 @@
-[site]
 title = "Example Dumb Site"
+startpage = "home"
+navigation = ["home", "about", "contact"]

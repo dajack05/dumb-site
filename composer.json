@@ -1,0 +1,32 @@
+{
+  "name": "dajack05/dumb-site",
+  "type": "project",
+  "license": "GPL-3",
+  "authors": [
+    {
+      "name": "Daniel Jackson",
+      "email": "dajack05@gmail.com"
+    }
+  ],
+  "scripts": {
+    "dev": [
+      "@composer install",
+      "php -S localhost:8080 index.php"
+    ],
+    "build": [
+      "@composer --no-plugins --no-interaction install --no-scripts --no-dev",
+      "@composer --no-plugins --no-interaction archive"
+    ]
+  },
+  "config": {
+    "process-timeout": 0
+  },
+  "scripts-descriptions": {
+    "build": "Build project artifact."
+  },
+  "require": {
+    "yosymfony/toml": "^1.0",
+    "erusev/parsedown": "^1.7",
+    "erusev/parsedown-extra": "^0.8.1"
+  }
+}
