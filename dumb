@@ -1,0 +1,42 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+    echo "Usage: dumb [command]"
+    echo "---------------------"
+    echo "Commands:"
+    echo "  install - Install all libraries."
+    echo "    serve - Start a local server and watch for tailwind changes."
+    echo "    build - Generate production output into ./build directory."
+    exit 1
+fi
+
+arg="$1"
+
+if [[ "$arg" == "start" ]]; then
+    echo "Starting the service..."
+fi
+
+if [[ "$arg" == "install" ]]
+then
+    echo "Installing..."
+    npm install
+    composer install
+    echo "Done!"
+elif [[ "$arg" == "serve" ]]
+then
+    echo "Serving..."
+    npm run dev
+elif [[ "$arg" == "build" ]]
+then
+    echo "Building..."
+    npm run build
+    rm -rf ./dist
+    mkdir ./dist
+    cp *.php ./dist
+    cp LICENSE ./dist
+    cp site.toml ./dist
+    cp style.css ./dist
+    cp -r ./pages ./dist
+    cp -r ./vendor ./dist
+fi

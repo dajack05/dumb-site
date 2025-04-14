@@ -14,15 +14,7 @@
       "php -S localhost:8080 index.php"
     ],
     "build": [
-      "@composer --no-plugins --no-interaction install --no-scripts --no-dev",
-      "mkdir -p dist",
-      "cd dist && rm -rf * && cd ..",
-      "cp *.php ./dist",
-      "cp LICENSE ./dist",
-      "cp site.toml ./dist",
-      "cp style.css ./dist",
-      "cp -r ./pages ./dist",
-      "cp -r ./vendor ./dist"
+      "@composer --no-plugins --no-interaction install --no-scripts --no-dev"
     ],
     "archive": [
       "@composer --no-plugins --no-interaction install --no-scripts --no-dev",
