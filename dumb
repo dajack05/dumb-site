@@ -1,23 +1,100 @@
 #/bin/bash
 
-arg="$1"
+DEFAULT_SITE_TOML=$(cat <<EOF
+# The title of the whole site.
+title = "Dumb Site"
 
-if [[ "$arg" == "install" ]]
-then
+# Which page-tag should be shown when / is navigated to?
+startpage = "home"
+
+# Which page-tags should be shown in the site navigation area?
+navigation = ["home","about"]
+EOF
+)
+
+DEFAULT_INPUT_CSS=$(cat <<EOF
+@import "tailwindcss";
+
+body {
+    @apply min-h-[100vh] bg-gray-200 flex flex-col;
+}
+
+header {
+    @apply bg-cyan-300 p-6;
+
+}
+
+nav {
+    @apply flex sticky top-0;
+
+    a {
+        @apply border-cyan-500 bg-cyan-400 flex-grow text-center font-semibold p-2 transition-all;
+        @apply hover:bg-cyan-300;
+
+        &.active {
+            @apply border-cyan-500 bg-cyan-500 flex-grow text-center font-semibold p-2 transition-all text-white;
+            @apply hover:bg-cyan-500;
+        }
+    }
+}
+
+main {
+    @apply container mx-auto bg-gray-300 grow my-4;
+
+    * {
+        @apply m-4;
+    }
+
+    a {
+        @apply text-blue-600 underline hover:text-blue-500 transition-colors;
+    }
+
+    h1 {
+        @apply text-4xl p-4 w-full shadow-md m-0 bg-cyan-500 text-white px-8;
+    }
+
+    h2 {
+        @apply text-3xl border-b;
+    }
+
+    h3 {
+        @apply text-2xl italic;
+    }
+
+    h4 {
+        @apply text-xl font-bold;
+    }
+
+    h5 {
+        @apply font-semibold;
+    }
+}
+
+footer {
+    @apply px-6 py-3 bg-cyan-600 text-white;
+}
+
+.site-title {
+    @apply text-3xl font-semibold m-6;
+}
+EOF
+)
+
+function install(){
     echo "Installing..."
     npm install
     composer install
     echo "Done!"
-elif [[ "$arg" == "serve" ]]
-then
+}
+
+function serve(){
     echo "Serving..."    
     xdg-open </dev/null &> /dev/null http://localhost:8080 &
     npm run dev
-    exit 1
-elif [[ "$arg" == "build" ]]
-then
+}
+
+function build(){
     echo "Building..."
-    npm run build
     rm -rf ./dist
     mkdir ./dist
     cp *.php ./dist
@@ -26,19 +103,50 @@ then
     cp style.css ./dist
     cp -r ./pages ./dist
     cp -r ./vendor ./dist
-    exit 1
-elif [[ "$arg" == "strip" ]]
-then
+}
+
+function strip(){
     echo "Stripping Repo"
     rm -rf .git
     rm .gitignore
     echo "Done!"
+}
+
+arg="$1"
+
+if [[ "$arg" == "install" ]]
+then
+    install
+    exit 1
+elif [[ "$arg" == "serve" ]]
+then
+    install
+    serve
+    exit 1
+elif [[ "$arg" == "build" ]]
+then
+    install
+    build
+    exit 1
+elif [[ "$arg" == "strip" ]]
+then
+    strip
+    exit 1
+elif [[ "$arg" == "setup" ]]
+then
+    install
+    mkdir pages
+    echo "# Welcome Home" > pages/home.md
+    echo "# About Us" > pages/about.md
+    echo "${DEFAULT_SITE_TOML}" > site.toml
+    echo "${DEFAULT_INPUT_CSS}" > input.css
     exit 1
 fi
 
 echo "Usage: dumb [command]"
 echo "---------------------"
 echo "Commands:"
+echo "    setup - Initalize any configuration (also runs install)."
 echo "  install - Install all libraries."
 echo "    serve - Start a local server and watch for tailwind changes."
 echo "    build - Generate production output into ./build directory."

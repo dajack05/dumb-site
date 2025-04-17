@@ -2,3 +2,6 @@
 /node_modules/
 /dist/
 style.css
+input.css
+site.toml
+/pages/
