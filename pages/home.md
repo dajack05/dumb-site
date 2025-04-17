@@ -1,4 +1,7 @@
-# Home
+```toml
+label="Home"
+tag="cool-custom-tag"
+```
 
 ## Welcome To My World
 

@@ -1,3 +1,7 @@
+```toml
+label="Contact"
+```
+
 # Contact Us
 
 ## Welcome To My World

@@ -1,15 +1,9 @@
 <?php
 
-use Yosymfony\Toml\Toml;
-
 include "vendor/autoload.php";
+include "DumbSite.php";
 
-$config = Toml::ParseFile('site.toml');
-
-$page_name = substr($_SERVER['REQUEST_URI'], 1);
-if (strlen($page_name) <= 0) {
-    header("location:/" . $config['startpage']);
-}
+$site = new Site();
 
 ?>
 <!DOCTYPE html>
@@ -21,11 +15,29 @@ if (strlen($page_name) <= 0) {
     <style>
         <?php include "style.css"; ?>
     </style>
-    <title><?= $config['title'] ?></title>
+    <title><?= $site->getConfig()->title ?></title>
 </head>
 
 <body>
-    <?php include "template.php"; ?>
+    <header>
+        <strong class="site-title"><?= $site->getConfig()->title ?></strong>
+    </header>
+    <nav>
+        <?php
+        if (sizeof($site->getConfig()->navigationPages) > 0) {
+            foreach ($site->getNavItems() as $navItem) {
+                $active = $navItem == $site->getCurrentPage() ? "active" : "";
+                echo "<a class='text-lg $active' href='/$navItem->tag'>$navItem->label</a>";
+            }
+        }
+        ?>
+    </nav>
+    <main>
+        <?= $site->getCurrentPage()->getHTML() ?>
+    </main>
+    <footer>
+        <strong>&copy; Copyright 2025 Daniel Jackson</strong>
+    </footer>
 </body>
 
 </html>

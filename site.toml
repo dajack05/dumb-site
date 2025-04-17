@@ -1,3 +1,8 @@
+# The title of the whole site.
 title = "Example Dumb Site"
-startpage = "home"
-navigation = ["home", "about", "contact"]
+
+# Which page-tag should be shown when / is navigated to?
+startpage = ""
+
+# Which page-tags should be shown in the site navigation area?
+navigation = ["cool-custom-tag", "about", "contact"]
